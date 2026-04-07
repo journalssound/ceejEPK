@@ -367,11 +367,12 @@ section {
 
 .support-more {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-weight: 500;
   font-style: italic;
   color: var(--dark-soft);
-  padding: 0.6rem 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
   opacity: 0;
 }
 
@@ -981,7 +982,6 @@ section {
 <!-- LIVE SET -->
 <section id="live">
   <div class="container">
-    <p class="section-label reveal">Watch</p>
     <h2 class="section-title reveal">Live Set</h2>
     <div class="video-frame reveal">
       <iframe 
@@ -1019,8 +1019,8 @@ section {
       <span class="support-artist">Cloonee</span>
       <span class="support-artist">John Summit</span>
       <span class="support-artist">Duke Dumont</span>
-      <span class="support-more reveal">+ more</span>
     </div>
+    <p class="support-more reveal">+ more</p>
   </div>
 </section>
 
@@ -1041,7 +1041,6 @@ section {
 <section id="stats">
   <div class="container">
     <h2 class="section-title reveal">Stats</h2>
-    <p class="stats-subtitle reveal">And Counting</p>
 
     <!-- Desktop: Sun Visualization -->
     <div class="stats-sun-container" id="statsSun">
