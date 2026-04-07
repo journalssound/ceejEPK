@@ -484,7 +484,6 @@ section {
   position: absolute;
   right: -120px;
   top: 50%;
-  transform: translateY(-50%);
   background: var(--white);
   border-radius: 50%;
   width: 110px;
@@ -495,13 +494,13 @@ section {
   justify-content: center;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   opacity: 0;
-  transform: translateY(-50%) scale(0);
+  transform: translateY(-50%) rotate(var(--counter-angle, 0deg)) scale(0);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .stat-bubble.visible {
   opacity: 1;
-  transform: translateY(-50%) scale(1);
+  transform: translateY(-50%) rotate(var(--counter-angle, 0deg)) scale(1);
 }
 
 .stat-number {
@@ -624,6 +623,57 @@ section {
 #photos {
   background: var(--cream-light);
   overflow: hidden;
+}
+
+.photos-scroll-wrap {
+  position: relative;
+}
+
+.photos-scroll-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(to right, transparent, var(--cream-light));
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+
+.photos-scroll-wrap.scrolled-end::after {
+  opacity: 0;
+}
+
+.photos-scroll-hint {
+  position: absolute;
+  top: 50%;
+  right: 1.2rem;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dark-soft);
+  opacity: 0.7;
+  pointer-events: none;
+  animation: nudgeRight 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+.photos-scroll-wrap.scrolled .photos-scroll-hint {
+  opacity: 0;
+}
+
+@keyframes nudgeRight {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(6px); }
 }
 
 .photos-scroll {
@@ -896,7 +946,7 @@ section {
     <h2 class="section-title reveal">Live Set</h2>
     <div class="video-frame reveal">
       <iframe 
-        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1" 
+        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1&autoplay=1&mute=1" 
         title="ceej Live Set"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen
@@ -985,7 +1035,12 @@ section {
   <div class="container">
     <p class="section-label reveal">Press</p>
     <h2 class="section-title reveal">Photos</h2>
-    <div class="photos-scroll">
+    <div class="photos-scroll-wrap">
+      <div class="photos-scroll-hint">
+        <span>Scroll</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="photos-scroll">
       <div class="photo-card"><img src="ceej%20brand%20drop%2001.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2001.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
       <div class="photo-card"><img src="ceej%20brand%20drop%2002.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2002.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
       <div class="photo-card"><img src="ceej%20brand%20drop%2003.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2003.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
@@ -1005,6 +1060,7 @@ section {
       <div class="photo-card"><img src="WIL02434.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02434.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
       <div class="photo-card"><img src="WIL02455.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02455.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
       <div class="photo-card"><img src="WIL02590.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02590.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1195,6 +1251,22 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
+  /* Photo scroll hint behavior */
+  const photosScroll = document.querySelector('.photos-scroll');
+  const photosWrap = document.querySelector('.photos-scroll-wrap');
+  if (photosScroll && photosWrap) {
+    photosScroll.addEventListener('scroll', () => {
+      if (photosScroll.scrollLeft > 20) {
+        photosWrap.classList.add('scrolled');
+      }
+      if (photosScroll.scrollLeft + photosScroll.clientWidth >= photosScroll.scrollWidth - 20) {
+        photosWrap.classList.add('scrolled-end');
+      } else {
+        photosWrap.classList.remove('scrolled-end');
+      }
+    }, { passive: true });
+  }
+
   /* ═══════════════════════════
      STATS SUN VISUALIZATION
      ═══════════════════════════ */
@@ -1231,7 +1303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const bubble = document.createElement('div');
       bubble.className = 'stat-bubble';
       bubble.style.right = `-${55 + 60}px`;
-      bubble.style.transform = `rotate(${-angle}deg)`;
+      bubble.style.setProperty('--counter-angle', `${-angle}deg`);
       bubble.innerHTML = `
         <span class="stat-number" data-value="${stat.value}">0</span>
         <span class="stat-label">${stat.label}</span>
