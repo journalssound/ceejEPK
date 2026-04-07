@@ -361,6 +361,20 @@ section {
   color: var(--sky-dark);
 }
 
+.support-sublabel {
+  margin-top: 2.5rem;
+}
+
+.support-more {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--dark-soft);
+  padding: 0.6rem 1.2rem;
+  opacity: 0;
+}
+
 /* ═══════════════════════════════════════════
    FESTIVALS
    ═══════════════════════════════════════════ */
@@ -784,7 +798,15 @@ section {
 
 #contact .section-title {
   color: var(--white);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-inquiry {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
 }
 
 .contact-email {
@@ -977,7 +999,7 @@ section {
 <section id="support">
   <div class="container">
     <h2 class="section-title reveal">Shared the Stage With</h2>
-    <p class="section-label reveal">Direct Support For</p>
+    <p class="section-label reveal">Direct Support</p>
     <div class="support-grid stagger-reveal">
       <span class="support-artist">Odd Mob</span>
       <span class="support-artist">Max Styler</span>
@@ -991,6 +1013,13 @@ section {
       <span class="support-artist">CID</span>
       <span class="support-artist">The Knocks</span>
       <span class="support-artist">Noizu</span>
+    </div>
+    <p class="section-label support-sublabel reveal">Support</p>
+    <div class="support-grid stagger-reveal">
+      <span class="support-artist">Cloonee</span>
+      <span class="support-artist">John Summit</span>
+      <span class="support-artist">Duke Dumont</span>
+      <span class="support-more reveal">+ more</span>
     </div>
   </div>
 </section>
@@ -1012,7 +1041,7 @@ section {
 <section id="stats">
   <div class="container">
     <h2 class="section-title reveal">Stats</h2>
-    <p class="stats-subtitle reveal">Growing Every Day</p>
+    <p class="stats-subtitle reveal">And Counting</p>
 
     <!-- Desktop: Sun Visualization -->
     <div class="stats-sun-container" id="statsSun">
@@ -1086,7 +1115,8 @@ section {
 <section id="contact">
   <div class="container">
     <p class="section-label reveal">Booking</p>
-    <h2 class="section-title reveal">Let's Work Together</h2>
+    <h2 class="section-title reveal">Get in Touch</h2>
+    <p class="contact-inquiry reveal">To inquire about rates and availability, please reach out to</p>
     <a href="mailto:info@ceejmusic.com" class="contact-email reveal">info@ceejmusic.com</a>
 
     <div class="social-links reveal">
