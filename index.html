@@ -318,6 +318,7 @@ section {
 #support {
   background: var(--cream-light);
   overflow: hidden;
+  text-align: center;
 }
 
 .support-grid {
@@ -337,7 +338,15 @@ section {
   opacity: 0;
   transition: color 0.3s ease;
   cursor: default;
-  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .support-artist {
+    flex: 0 0 100%;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+  }
 }
 
 .support-artist::before {
@@ -375,6 +384,14 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem 3rem;
+}
+
+@media (max-width: 600px) {
+  .festival-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .festival-item {
@@ -548,15 +565,24 @@ section {
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .stats-mobile-item .stat-number {
     font-size: 1.6rem;
+    display: block;
+    width: 100%;
   }
   
   .stats-mobile-item .stat-label {
     font-size: 0.65rem;
     margin-top: 0.4rem;
+    display: block;
+    width: 100%;
+    white-space: pre-line;
   }
 }
 
@@ -758,16 +784,7 @@ section {
 
 #contact .section-title {
   color: var(--white);
-  margin-bottom: 1rem;
-}
-
-.contact-tagline {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.2rem;
-  color: var(--cream);
-  margin-bottom: 3rem;
-  opacity: 0.8;
+  margin-bottom: 2rem;
 }
 
 .contact-email {
@@ -1070,7 +1087,6 @@ section {
   <div class="container">
     <p class="section-label reveal">Booking</p>
     <h2 class="section-title reveal">Let's Work Together</h2>
-    <p class="contact-tagline reveal">I'm just happy to be <em style="color:var(--yellow); font-style:italic;">here</em>. Let me be there, too.</p>
     <a href="mailto:info@ceejmusic.com" class="contact-email reveal">info@ceejmusic.com</a>
 
     <div class="social-links reveal">
