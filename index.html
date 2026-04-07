@@ -69,12 +69,10 @@ body {
   animation: spin-slow 4s linear infinite;
 }
 
-#preloader .loader-text {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--dark);
+#preloader .loader-logo {
+  width: 140px;
   margin-top: 1.5rem;
+  filter: invert(1);
   opacity: 0;
   animation: fade-up 0.6s ease 0.3s forwards;
 }
@@ -223,14 +221,14 @@ nav .nav-links a:hover::after { width: 100%; }
 }
 
 .hero-tagline {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-style: italic;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-weight: 400;
   color: var(--dark);
   margin-top: 1.5rem;
   opacity: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.08em;
 }
 
 .hero-tagline em {
@@ -241,28 +239,24 @@ nav .nav-links a:hover::after { width: 100%; }
 
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   opacity: 0;
 }
 
 .scroll-indicator span {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--dark);
-  font-weight: 500;
+  display: none;
 }
 
 .scroll-line {
   width: 1px;
-  height: 40px;
+  height: 24px;
   background: var(--dark);
   position: relative;
   overflow: hidden;
@@ -422,6 +416,22 @@ section {
 #stats .section-label,
 #stats .section-title {
   text-align: center;
+}
+
+#stats .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.stats-subtitle {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--dark-soft);
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  opacity: 0;
 }
 
 .stats-sun-container {
@@ -637,6 +647,7 @@ section {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   opacity: 0;
   transform: translateY(20px);
+  position: relative;
 }
 
 .photo-card img {
@@ -648,6 +659,37 @@ section {
 
 .photo-card:hover img {
   transform: scale(1.05);
+}
+
+.photo-download {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  z-index: 2;
+}
+
+.photo-card:hover .photo-download {
+  opacity: 1;
+}
+
+.photo-download:hover {
+  background: var(--yellow);
+}
+
+.photo-download svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--dark);
 }
 
 /* ═══════════════════════════════════════════
@@ -815,16 +857,16 @@ section {
     <circle cx="88" cy="97" rx="7" ry="5" fill="#1a1a2e"/>
     <circle cx="112" cy="97" rx="7" ry="5" fill="#1a1a2e"/>
   </svg>
-  <div class="loader-text">ceej</div>
+  <img src="ceej%20logo%20-%20white.png" alt="ceej" class="loader-logo">
 </div>
 
 <!-- NAVIGATION -->
 <nav id="navbar">
   <img src="ceej%20logo%20-%20white.png" alt="ceej" class="nav-logo">
   <ul class="nav-links">
+    <li><a href="#live">Live</a></li>
     <li><a href="#support">Artists</a></li>
     <li><a href="#stats">Stats</a></li>
-    <li><a href="#live">Live</a></li>
     <li><a href="#music">Music</a></li>
     <li><a href="#contact">Booking</a></li>
   </ul>
@@ -847,11 +889,28 @@ section {
   </div>
 </section>
 
+<!-- LIVE SET -->
+<section id="live">
+  <div class="container">
+    <p class="section-label reveal">Watch</p>
+    <h2 class="section-title reveal">Live Set</h2>
+    <div class="video-frame reveal">
+      <iframe 
+        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1" 
+        title="ceej Live Set"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
 <!-- SHARED THE STAGE WITH -->
 <section id="support">
   <div class="container">
-    <p class="section-label reveal">Direct Support For</p>
     <h2 class="section-title reveal">Shared the Stage With</h2>
+    <p class="section-label reveal">Direct Support For</p>
     <div class="support-grid stagger-reveal">
       <span class="support-artist">Odd Mob</span>
       <span class="support-artist">Max Styler</span>
@@ -872,8 +931,7 @@ section {
 <!-- FESTIVALS -->
 <section id="festivals">
   <div class="container">
-    <p class="section-label reveal">Festival Appearances</p>
-    <h2 class="section-title reveal">On the Lineup</h2>
+    <h2 class="section-title reveal">Festival Appearances</h2>
     <div class="festival-list stagger-reveal">
       <span class="festival-item">Regenerate Festival</span>
       <span class="festival-item">North Coast</span>
@@ -886,8 +944,8 @@ section {
 <!-- STATS -->
 <section id="stats">
   <div class="container">
-    <p class="section-label reveal">By The Numbers</p>
-    <h2 class="section-title reveal">Growing Every Day</h2>
+    <h2 class="section-title reveal">Stats</h2>
+    <p class="stats-subtitle reveal">Growing Every Day</p>
 
     <!-- Desktop: Sun Visualization -->
     <div class="stats-sun-container" id="statsSun">
@@ -899,23 +957,6 @@ section {
 
     <!-- Mobile: Grid fallback -->
     <div class="stats-mobile" id="statsMobile"></div>
-  </div>
-</section>
-
-<!-- LIVE SET -->
-<section id="live">
-  <div class="container">
-    <p class="section-label reveal">Watch</p>
-    <h2 class="section-title reveal">Live Set</h2>
-    <div class="video-frame reveal">
-      <iframe 
-        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1" 
-        title="ceej Live Set"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-        loading="lazy">
-      </iframe>
-    </div>
   </div>
 </section>
 
@@ -945,24 +986,25 @@ section {
     <p class="section-label reveal">Press</p>
     <h2 class="section-title reveal">Photos</h2>
     <div class="photos-scroll">
-      <div class="photo-card"><img src="ceej%20brand%20drop%2001.png" alt="ceej press photo" loading="lazy"></div>
-      <div class="photo-card"><img src="ceej%20brand%20drop%2002.png" alt="ceej press photo" loading="lazy"></div>
-      <div class="photo-card"><img src="ceej%20brand%20drop%2003.png" alt="ceej press photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01857.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01901.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01913.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01914.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01982.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL01993.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02058.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02071.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02109.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02269.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02349.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02373.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02434.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02455.jpg" alt="ceej photo" loading="lazy"></div>
-      <div class="photo-card"><img src="WIL02590.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2001.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2001.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2002.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2002.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2003.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2003.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2004.png" alt="ceej press photo" loading="lazy"><a class="photo-download" href="ceej%20brand%20drop%2004.png" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01857.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01857.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01901.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01901.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01913.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01913.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01914.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01914.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01982.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01982.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL01993.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL01993.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02058.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02058.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02071.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02071.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02109.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02109.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02269.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02269.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02349.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02349.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02373.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02373.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02434.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02434.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02455.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02455.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      <div class="photo-card"><img src="WIL02590.jpg" alt="ceej photo" loading="lazy"><a class="photo-download" href="WIL02590.jpg" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
     </div>
   </div>
 </section>
@@ -1189,6 +1231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const bubble = document.createElement('div');
       bubble.className = 'stat-bubble';
       bubble.style.right = `-${55 + 60}px`;
+      bubble.style.transform = `rotate(${-angle}deg)`;
       bubble.innerHTML = `
         <span class="stat-number" data-value="${stat.value}">0</span>
         <span class="stat-label">${stat.label}</span>
