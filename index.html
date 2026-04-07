@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ceej — Electronic Press Kit</title>
+<meta name="description" content="ceej — I'm just happy to be here. Electronic press kit, music, and booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS RESET & VARIABLES
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sky: #A5C9E9;
+  --sky-light: #c4ddf0;
+  --sky-dark: #7db3dc;
+  --yellow: #FBEE07;
+  --yellow-soft: rgba(251, 238, 7, 0.15);
+  --cream: #E8E0D8;
+  --cream-light: #F5F0EB;
+  --white: #FFFFFF;
+  --dark: #1a1a2e;
+  --dark-soft: #2d2d44;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--sky);
+  color: var(--dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   PRELOADER
+   ═══════════════════════════════════════════ */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--sky);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#preloader .sun-loader {
+  width: 80px;
+  height: 80px;
+  animation: spin-slow 4s linear infinite;
+}
+
+#preloader .loader-text {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fade-up 0.6s ease 0.3s forwards;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(165, 201, 233, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+nav .nav-logo {
+  height: 28px;
+  filter: invert(1);
+  transition: filter 0.3s;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+nav .nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--dark);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s;
+}
+
+nav .nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--yellow);
+  transition: width 0.3s ease;
+}
+
+nav .nav-links a:hover::after { width: 100%; }
+
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════ */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-video-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(165, 201, 233, 0.3) 0%,
+    rgba(165, 201, 233, 0.15) 40%,
+    rgba(165, 201, 233, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.hero-video.active {
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+  opacity: 0;
+  filter: invert(1);
+}
+
+.hero-logo {
+  width: min(500px, 80vw);
+  opacity: 0;
+  filter: invert(1);
+}
+
+.hero-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 400;
+  color: var(--dark);
+  margin-top: 1.5rem;
+  opacity: 0;
+  letter-spacing: 0.01em;
+}
+
+.hero-tagline em {
+  color: var(--yellow);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(251, 238, 7, 0.3);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--yellow);
+  animation: scroll-pulse 2s ease infinite;
+}
+
+@keyframes scroll-pulse {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION COMMON
+   ═══════════════════════════════════════════ */
+section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark-soft);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.1;
+  margin-bottom: 3rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════
+   SHARED THE STAGE WITH
+   ═══════════════════════════════════════════ */
+#support {
+  background: var(--cream-light);
+  overflow: hidden;
+}
+
+.support-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+}
+
+.support-artist {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
+  font-weight: 600;
+  color: var(--dark);
+  padding: 0.6rem 1.2rem;
+  position: relative;
+  opacity: 0;
+  transition: color 0.3s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.support-artist::before {
+  content: '✦';
+  font-size: 0.5em;
+  color: var(--yellow);
+  margin-right: 0.6rem;
+  vertical-align: middle;
+}
+
+.support-artist:hover {
+  color: var(--sky-dark);
+}
+
+/* ═══════════════════════════════════════════
+   FESTIVALS
+   ═══════════════════════════════════════════ */
+#festivals {
+  background: var(--dark);
+  color: var(--white);
+  text-align: center;
+  overflow: hidden;
+}
+
+#festivals .section-label {
+  color: var(--sky-light);
+}
+
+#festivals .section-title {
+  color: var(--white);
+}
+
+.festival-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 3rem;
+}
+
+.festival-item {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 500;
+  color: var(--cream);
+  opacity: 0;
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+
+.festival-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.festival-item:hover::after {
+  transform: scaleX(1);
+}
+
+/* ═══════════════════════════════════════════
+   STATS SUN VISUALIZATION
+   ═══════════════════════════════════════════ */
+#stats {
+  background: var(--sky);
+  padding: 8rem 2rem;
+  overflow: hidden;
+}
+
+#stats .section-label,
+#stats .section-title {
+  text-align: center;
+}
+
+.stats-sun-container {
+  position: relative;
+  width: min(700px, 90vw);
+  height: min(700px, 90vw);
+  margin: 4rem auto 0;
+}
+
+.stats-sun-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  z-index: 5;
+  opacity: 0;
+}
+
+.stats-sun-center img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+
+.stat-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  opacity: 0;
+}
+
+.stat-ray-line {
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--dark) 0px,
+    var(--dark) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  width: 0;
+  transition: width 1s ease;
+}
+
+.stat-bubble {
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--white);
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(-50%) scale(0);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stat-bubble.visible {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dark-soft);
+  margin-top: 0.3rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Mobile stats fallback */
+.stats-mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .stats-sun-container {
+    display: none;
+  }
+  
+  .stats-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 400px;
+    margin: 2rem auto 0;
+  }
+  
+  .stats-mobile-item {
+    background: var(--white);
+    border-radius: 1.2rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+  }
+  
+  .stats-mobile-item .stat-number {
+    font-size: 1.6rem;
+  }
+  
+  .stats-mobile-item .stat-label {
+    font-size: 0.65rem;
+    margin-top: 0.4rem;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   LIVE SET
+   ═══════════════════════════════════════════ */
+#live {
+  background: var(--cream-light);
+  text-align: center;
+}
+
+.video-frame {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.video-frame::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, var(--yellow), var(--sky), var(--yellow));
+  z-index: -1;
+}
+
+.video-frame iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   MUSIC / SPOTIFY
+   ═══════════════════════════════════════════ */
+#music {
+  background: var(--sky);
+}
+
+.spotify-embed {
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.spotify-embed iframe {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   PRESS PHOTOS
+   ═══════════════════════════════════════════ */
+#photos {
+  background: var(--cream-light);
+  overflow: hidden;
+}
+
+.photos-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.photos-scroll::-webkit-scrollbar { display: none; }
+
+.photo-card {
+  flex: 0 0 auto;
+  width: min(350px, 75vw);
+  border-radius: 1rem;
+  overflow: hidden;
+  scroll-snap-align: start;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT / FOOTER
+   ═══════════════════════════════════════════ */
+#contact {
+  background: var(--dark);
+  color: var(--white);
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+}
+
+#contact .section-label {
+  color: var(--sky-light);
+}
+
+#contact .section-title {
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.contact-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--cream);
+  margin-bottom: 3rem;
+  opacity: 0.8;
+}
+
+.contact-email {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--yellow);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.contact-email::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.contact-email:hover::after {
+  transform: scaleX(1);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: var(--yellow);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer-bottom {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  height: 24px;
+  opacity: 0.7;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ═══════════════════════════════════════════
+   GRAIN OVERLAY
+   ═══════════════════════════════════════════ */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL ANIMATION CLASSES
+   ═══════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(30px); }
+.reveal.active { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease, transform 0.8s ease; }
+
+/* Stagger children */
+.stagger-reveal > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  #stats { padding: 5rem 1.5rem; }
+  .social-links { flex-direction: column; align-items: center; gap: 1rem; }
+  .festival-list { gap: 1rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- GRAIN OVERLAY -->
+<div class="grain"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <svg class="sun-loader" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 30 C100 30, 108 55, 100 70 C92 55, 100 30, 100 30Z" fill="#1a1a2e"/>
+    <path d="M100 170 C100 170, 108 145, 100 130 C92 145, 100 170, 100 170Z" fill="#1a1a2e"/>
+    <path d="M30 100 C30 100, 55 92, 70 100 C55 108, 30 100, 30 100Z" fill="#1a1a2e"/>
+    <path d="M170 100 C170 100, 145 92, 130 100 C145 108, 170 100, 170 100Z" fill="#1a1a2e"/>
+    <path d="M51 51 C51 51, 70 65, 75 75 C65 70, 51 51, 51 51Z" fill="#1a1a2e"/>
+    <path d="M149 51 C149 51, 130 65, 125 75 C135 70, 149 51, 149 51Z" fill="#1a1a2e"/>
+    <path d="M51 149 C51 149, 70 135, 75 125 C65 130, 51 149, 51 149Z" fill="#1a1a2e"/>
+    <path d="M149 149 C149 149, 130 135, 125 125 C135 130, 149 149, 149 149Z" fill="#1a1a2e"/>
+    <path d="M67 38 C67 38, 80 58, 82 72 C73 60, 67 38, 67 38Z" fill="#1a1a2e"/>
+    <path d="M133 162 C133 162, 120 142, 118 128 C127 140, 133 162, 133 162Z" fill="#1a1a2e"/>
+    <path d="M38 133 C38 133, 58 120, 72 118 C60 127, 38 133, 38 133Z" fill="#1a1a2e"/>
+    <path d="M162 67 C162 67, 142 80, 128 82 C140 73, 162 67, 162 67Z" fill="#1a1a2e"/>
+    <circle cx="88" cy="97" rx="7" ry="5" fill="#1a1a2e"/>
+    <circle cx="112" cy="97" rx="7" ry="5" fill="#1a1a2e"/>
+  </svg>
+  <div class="loader-text">ceej</div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <img src="ceej%20logo%20-%20white.png" alt="ceej" class="nav-logo">
+  <ul class="nav-links">
+    <li><a href="#support">Artists</a></li>
+    <li><a href="#stats">Stats</a></li>
+    <li><a href="#live">Live</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#contact">Booking</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <video class="hero-video active" src="CEEJ%202.mp4" muted playsinline autoplay loop></video>
+    <video class="hero-video" src="CEEJ%203.mp4" muted playsinline preload="auto" loop></video>
+  </div>
+  <div class="hero-content">
+    <img src="ceej%20icon%20-%20white.png" alt="" class="hero-icon">
+    <img src="ceej%20logo%20-%20white.png" alt="ceej" class="hero-logo">
+    <p class="hero-tagline">I'm just happy to be <em>here</em>.</p>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SHARED THE STAGE WITH -->
+<section id="support">
+  <div class="container">
+    <p class="section-label reveal">Direct Support For</p>
+    <h2 class="section-title reveal">Shared the Stage With</h2>
+    <div class="support-grid stagger-reveal">
+      <span class="support-artist">Odd Mob</span>
+      <span class="support-artist">Max Styler</span>
+      <span class="support-artist">Ranger Trucco</span>
+      <span class="support-artist">J Worra</span>
+      <span class="support-artist">Sofi Tukker</span>
+      <span class="support-artist">Disco Lines</span>
+      <span class="support-artist">Louis The Child</span>
+      <span class="support-artist">A-Trak</span>
+      <span class="support-artist">Sosa</span>
+      <span class="support-artist">CID</span>
+      <span class="support-artist">The Knocks</span>
+      <span class="support-artist">Noizu</span>
+    </div>
+  </div>
+</section>
+
+<!-- FESTIVALS -->
+<section id="festivals">
+  <div class="container">
+    <p class="section-label reveal">Festival Appearances</p>
+    <h2 class="section-title reveal">On the Lineup</h2>
+    <div class="festival-list stagger-reveal">
+      <span class="festival-item">Regenerate Festival</span>
+      <span class="festival-item">North Coast</span>
+      <span class="festival-item">Zeds Dead Jamboree</span>
+      <span class="festival-item">Vortex</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <p class="section-label reveal">By The Numbers</p>
+    <h2 class="section-title reveal">Growing Every Day</h2>
+
+    <!-- Desktop: Sun Visualization -->
+    <div class="stats-sun-container" id="statsSun">
+      <div class="stats-sun-center">
+        <img src="ceej%20icon%20-%20white.png" alt="">
+      </div>
+      <!-- Rays and bubbles generated by JS -->
+    </div>
+
+    <!-- Mobile: Grid fallback -->
+    <div class="stats-mobile" id="statsMobile"></div>
+  </div>
+</section>
+
+<!-- LIVE SET -->
+<section id="live">
+  <div class="container">
+    <p class="section-label reveal">Watch</p>
+    <h2 class="section-title reveal">Live Set</h2>
+    <div class="video-frame reveal">
+      <iframe 
+        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1" 
+        title="ceej Live Set"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="container">
+    <p class="section-label reveal">Listen</p>
+    <h2 class="section-title reveal">Music</h2>
+    <div class="spotify-embed reveal">
+      <iframe 
+        style="border-radius:12px" 
+        src="https://open.spotify.com/embed/artist/1EUvNOgSHmGTn7sAkKGopj?utm_source=generator&theme=0" 
+        width="100%" 
+        height="352" 
+        frameBorder="0" 
+        allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS PHOTOS -->
+<section id="photos">
+  <div class="container">
+    <p class="section-label reveal">Press</p>
+    <h2 class="section-title reveal">Photos</h2>
+    <div class="photos-scroll">
+      <div class="photo-card"><img src="ceej%20brand%20drop%2001.png" alt="ceej press photo" loading="lazy"></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2002.png" alt="ceej press photo" loading="lazy"></div>
+      <div class="photo-card"><img src="ceej%20brand%20drop%2003.png" alt="ceej press photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01857.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01901.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01913.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01914.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01982.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL01993.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02058.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02071.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02109.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02269.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02349.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02373.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02434.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02455.jpg" alt="ceej photo" loading="lazy"></div>
+      <div class="photo-card"><img src="WIL02590.jpg" alt="ceej photo" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label reveal">Booking</p>
+    <h2 class="section-title reveal">Let's Work Together</h2>
+    <p class="contact-tagline reveal">I'm just happy to be <em style="color:var(--yellow); font-style:italic;">here</em>. Let me be there, too.</p>
+    <a href="mailto:info@ceejmusic.com" class="contact-email reveal">info@ceejmusic.com</a>
+
+    <div class="social-links reveal">
+      <a href="https://open.spotify.com/artist/1EUvNOgSHmGTn7sAkKGopj" target="_blank" rel="noopener" class="social-link">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Spotify
+      </a>
+      <a href="https://www.instagram.com/cj.music__/" target="_blank" rel="noopener" class="social-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@cj.music__" target="_blank" rel="noopener" class="social-link">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        TikTok
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <img src="ceej%20logo%20-%20white.png" alt="ceej" class="footer-logo">
+      <span class="footer-copy">&copy; 2026 ceej. All rights reserved.</span>
+    </div>
+  </div>
+</section>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ═══════════════════════════
+     PRELOADER
+     ═══════════════════════════ */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('hidden');
+      animateHero();
+    }, 1200);
+  });
+
+  // Fallback if load takes too long
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+    animateHero();
+  }, 4000);
+
+  /* ═══════════════════════════
+     HERO ANIMATIONS
+     ═══════════════════════════ */
+  let heroAnimated = false;
+  function animateHero() {
+    if (heroAnimated) return;
+    heroAnimated = true;
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to('.hero-icon', { opacity: 1, duration: 0.8, y: 0 })
+      .to('.hero-logo', { opacity: 1, duration: 1, y: 0 }, '-=0.4')
+      .to('.hero-tagline', { opacity: 1, duration: 0.8, y: 0 }, '-=0.5')
+      .to('.scroll-indicator', { opacity: 0.6, duration: 0.6 }, '-=0.3');
+  }
+
+  /* ═══════════════════════════
+     VIDEO CYCLING
+     ═══════════════════════════ */
+  const videos = document.querySelectorAll('.hero-video');
+  let currentVideo = 0;
+
+  function cycleVideo() {
+    const next = (currentVideo + 1) % videos.length;
+    videos[currentVideo].classList.remove('active');
+    videos[next].classList.add('active');
+    videos[next].currentTime = 0;
+    videos[next].play().catch(() => {});
+    currentVideo = next;
+  }
+
+  // Cycle every 6 seconds
+  setInterval(cycleVideo, 6000);
+
+  /* ═══════════════════════════
+     NAVBAR SCROLL
+     ═══════════════════════════ */
+  const navbar = document.getElementById('navbar');
+  ScrollTrigger.create({
+    start: 80,
+    onUpdate: (self) => {
+      navbar.classList.toggle('scrolled', self.scroll() > 80);
+    }
+  });
+
+  /* ═══════════════════════════
+     SCROLL REVEALS
+     ═══════════════════════════ */
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  /* ═══════════════════════════
+     STAGGER REVEALS
+     ═══════════════════════════ */
+  gsap.utils.toArray('.stagger-reveal').forEach(container => {
+    const children = container.children;
+    gsap.fromTo(children,
+      { opacity: 0, y: 25 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  /* ═══════════════════════════
+     VIDEO FRAME REVEAL
+     ═══════════════════════════ */
+  gsap.fromTo('.video-frame',
+    { opacity: 0, y: 50, scale: 0.95 },
+    {
+      opacity: 1, y: 0, scale: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.video-frame',
+        start: 'top 80%',
+      }
+    }
+  );
+
+  gsap.fromTo('.spotify-embed',
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.spotify-embed',
+        start: 'top 80%',
+      }
+    }
+  );
+
+  /* ═══════════════════════════
+     PHOTO CARDS
+     ═══════════════════════════ */
+  gsap.utils.toArray('.photo-card').forEach((card, i) => {
+    const rotations = [-2, 1, -1, 0.5, -1.5, 1.2, -0.8, 0.6];
+    const rot = rotations[i % rotations.length];
+    gsap.fromTo(card,
+      { opacity: 0, y: 40, rotation: 0 },
+      {
+        opacity: 1, y: 0, rotation: rot,
+        duration: 0.7,
+        delay: (i % 5) * 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+        }
+      }
+    );
+  });
+
+  /* ═══════════════════════════
+     STATS SUN VISUALIZATION
+     ═══════════════════════════ */
+  const statsData = [
+    { label: 'Streams', value: '5.12M', numericValue: 5120000 },
+    { label: 'Playlist\nReach', value: '10.4M', numericValue: 10400000 },
+    { label: 'Views', value: '3.16M', numericValue: 3160000 },
+    { label: 'Shazams', value: '10.9K', numericValue: 10900 },
+    { label: 'Followers', value: '13.8K', numericValue: 13800 },
+    { label: 'DJ\nSupports', value: '76', numericValue: 76 },
+  ];
+
+  const sunContainer = document.getElementById('statsSun');
+  const containerSize = sunContainer ? sunContainer.offsetWidth : 700;
+
+  if (sunContainer && window.innerWidth > 600) {
+    const angles = [-90, -30, 30, 90, 150, 210]; // Distribute around the sun
+    const rayLength = containerSize * 0.28;
+
+    statsData.forEach((stat, i) => {
+      const angle = angles[i];
+      const rad = (angle * Math.PI) / 180;
+
+      // Create ray element
+      const ray = document.createElement('div');
+      ray.className = 'stat-ray';
+      ray.style.transform = `rotate(${angle}deg)`;
+
+      const line = document.createElement('div');
+      line.className = 'stat-ray-line';
+      line.style.width = '0px';
+      line.dataset.targetWidth = rayLength + 'px';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'stat-bubble';
+      bubble.style.right = `-${55 + 60}px`;
+      bubble.innerHTML = `
+        <span class="stat-number" data-value="${stat.value}">0</span>
+        <span class="stat-label">${stat.label}</span>
+      `;
+
+      ray.appendChild(line);
+      ray.appendChild(bubble);
+      sunContainer.appendChild(ray);
+    });
+
+    // Animate on scroll
+    ScrollTrigger.create({
+      trigger: '#statsSun',
+      start: 'top 70%',
+      onEnter: () => {
+        // Animate sun center
+        gsap.to('.stats-sun-center', {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          ease: 'back.out(1.5)'
+        });
+
+        // Slow spin
+        gsap.to('.stats-sun-center img', {
+          rotation: 360,
+          duration: 20,
+          repeat: -1,
+          ease: 'none'
+        });
+
+        // Animate rays and bubbles
+        document.querySelectorAll('.stat-ray').forEach((ray, i) => {
+          const line = ray.querySelector('.stat-ray-line');
+          const bubble = ray.querySelector('.stat-bubble');
+          const numberEl = bubble.querySelector('.stat-number');
+          const targetValue = numberEl.dataset.value;
+
+          gsap.to(ray, {
+            opacity: 1,
+            duration: 0.3,
+            delay: 0.3 + i * 0.15
+          });
+
+          gsap.to(line, {
+            width: line.dataset.targetWidth,
+            duration: 0.8,
+            delay: 0.4 + i * 0.15,
+            ease: 'power2.out',
+            onComplete: () => {
+              bubble.classList.add('visible');
+              // Animate number
+              animateNumber(numberEl, targetValue);
+            }
+          });
+        });
+      },
+      once: true
+    });
+  }
+
+  // Mobile stats
+  const statsMobile = document.getElementById('statsMobile');
+  if (statsMobile) {
+    statsData.forEach(stat => {
+      const item = document.createElement('div');
+      item.className = 'stats-mobile-item';
+      item.innerHTML = `
+        <span class="stat-number">${stat.value}</span>
+        <span class="stat-label">${stat.label}</span>
+      `;
+      statsMobile.appendChild(item);
+    });
+
+    gsap.utils.toArray('.stats-mobile-item').forEach((item, i) => {
+      gsap.fromTo(item,
+        { opacity: 0, y: 20, scale: 0.9 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.5,
+          delay: i * 0.1,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: statsMobile,
+            start: 'top 80%',
+          }
+        }
+      );
+    });
+  }
+
+  function animateNumber(el, target) {
+    // Parse target
+    let suffix = '';
+    let numeric = 0;
+
+    if (target.includes('M')) {
+      suffix = 'M';
+      numeric = parseFloat(target) * 100;
+    } else if (target.includes('K')) {
+      suffix = 'K';
+      numeric = parseFloat(target) * 10;
+    } else {
+      numeric = parseInt(target);
+    }
+
+    let current = 0;
+    const duration = 1500;
+    const start = performance.now();
+
+    function step(timestamp) {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      current = eased * numeric;
+
+      if (suffix === 'M') {
+        el.textContent = (current / 100).toFixed(2) + 'M';
+      } else if (suffix === 'K') {
+        el.textContent = (current / 10).toFixed(1) + 'K';
+      } else {
+        el.textContent = Math.round(current);
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  /* ═══════════════════════════
+     PARALLAX HERO
+     ═══════════════════════════ */
+  gsap.to('.hero-content', {
+    y: 100,
+    opacity: 0.3,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+});
+</script>
+</body>
+</html>
