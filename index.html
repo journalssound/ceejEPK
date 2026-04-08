@@ -985,11 +985,10 @@ section {
     <h2 class="section-title reveal">Live Set</h2>
     <div class="video-frame reveal">
       <iframe 
-        src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1&autoplay=1&mute=1" 
+        data-src="https://www.youtube.com/embed/yMp3RohHIWQ?start=71&rel=0&modestbranding=1&autoplay=1&mute=1" 
         title="ceej Live Set"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-        loading="lazy">
+        allowfullscreen>
       </iframe>
     </div>
   </div>
@@ -1019,6 +1018,10 @@ section {
       <span class="support-artist">Cloonee</span>
       <span class="support-artist">John Summit</span>
       <span class="support-artist">Duke Dumont</span>
+      <span class="support-artist">DJ Susan</span>
+      <span class="support-artist">The Sponges</span>
+      <span class="support-artist">Dubdogz</span>
+      <span class="support-artist">Wuki</span>
     </div>
     <p class="support-more reveal">+ more</p>
   </div>
@@ -1249,6 +1252,18 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ═══════════════════════════
      VIDEO FRAME REVEAL
      ═══════════════════════════ */
+  const liveIframe = document.querySelector('.video-frame iframe[data-src]');
+  if (liveIframe) {
+    ScrollTrigger.create({
+      trigger: '.video-frame',
+      start: 'top 90%',
+      once: true,
+      onEnter: () => {
+        liveIframe.src = liveIframe.dataset.src;
+      }
+    });
+  }
+
   gsap.fromTo('.video-frame',
     { opacity: 0, y: 50, scale: 0.95 },
     {
